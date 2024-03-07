@@ -1,13 +1,13 @@
 import { Note } from "../models/note";
-import { getAllNotesUrl } from "./setting";
+import * as NotesApi from "../network/notes_api"
 
 export function useNotes() {
   async function getAllNotes(
     setNotes: React.Dispatch<React.SetStateAction<Note[]>>
   ) {
     try {
-      const response = await fetch(getAllNotesUrl, { method: "GET" });
-      const notes = await await response.json();
+      
+      const notes = await NotesApi.fetchNotes()
       setNotes(notes);
     } catch (error) {
       console.log(error);
