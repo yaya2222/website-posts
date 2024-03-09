@@ -1,5 +1,5 @@
 import { Note } from "../models/note";
-import { getAllNotesUrl, createNoteUrl } from "./setting";
+import { noteUrl } from "./setting";
 
 const fetchData = async (input: RequestInfo, init?: RequestInit) => {
   const response = await fetch(input, init);
@@ -13,7 +13,7 @@ const fetchData = async (input: RequestInfo, init?: RequestInit) => {
 };
 
 export const fetchNotes = async (): Promise<Note[]> => {
-  const response = await fetchData(getAllNotesUrl, { method: "GET" });
+  const response = await fetchData(noteUrl, { method: "GET" });
   return response.json();
 };
 
@@ -23,10 +23,23 @@ export interface NoteInput {
 }
 
 export const createNotes = async (note: NoteInput): Promise<Note> => {
-  const response = await fetchData(createNoteUrl, {
+  const response = await fetchData(noteUrl, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(note),
   });
   return response.json();
 };
+
+export const deleteNote = async (noteId: string) => {
+  await fetchData(`${noteUrl}/${noteId}`, { method: "DELETE", })
+}
+
+export const updateNote = async (noteId: string, note: NoteInput): Promise<Note> => {
+  const response = await fetchData(`${noteUrl}/${noteId}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(note),
+  })
+  return response.json()
+}
