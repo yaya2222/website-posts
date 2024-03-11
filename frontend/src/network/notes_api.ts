@@ -1,7 +1,7 @@
 import { Note } from "../models/note";
 import { noteUrl } from "./setting";
 
-const fetchData = async (input: RequestInfo, init?: RequestInit) => {
+export const fetchData = async (input: RequestInfo, init?: RequestInit) => {
   const response = await fetch(input, init);
   if (response.ok) {
     return response;

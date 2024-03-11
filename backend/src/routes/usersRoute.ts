@@ -1,9 +1,10 @@
 import * as UsersController from "../controllers/usersController"
 import expres from "express"
+import { requiresAuth } from "../middleware/auth"
 
 const router = expres.Router()
 
-router.get("/",UsersController.getAuthenticatedUser)
+router.get("/",requiresAuth,UsersController.getAuthenticatedUser)
 
 router.post("/signup",UsersController.signUp)
 

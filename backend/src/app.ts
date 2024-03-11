@@ -8,6 +8,7 @@ import session from "express-session";
 import createHttpError, { isHttpError } from "http-errors";
 import env from "./ulit/validateEnv";
 import MongoStore from "connect-mongo";
+import { requiresAuth } from "./middleware/auth";
 const app = express();
 
 app.use(morgan("dev"));
@@ -30,7 +31,8 @@ app.use(
   })
 );
 
-app.use("/api/notes", notesRoute);
+app.use("/api/notes",requiresAuth, notesRoute);
+// app.use("/api/notes", notesRoute);
 app.use("/api/users", usersRoute);
 
 app.use((req, res, next) => {

@@ -5,6 +5,7 @@ import Note from "./components/Note";
 import AddEditNoteDialog from "./components/AddEditNoteDialog";
 import { FaPlus } from "react-icons/fa";
 import { useHandleDialog } from "./hooks/useHandleDialog";
+import SignUpModal from "./components/SignUpModal";
 
 function App() {
   const [notes, setNotes] = useState<NoteModel[]>([]);
@@ -30,13 +31,7 @@ function App() {
             Add new note
           </button>
         </div>
-        {(showNoteDialog.addDialog||showNoteDialog.noteToEdit) && (
-          <AddEditNoteDialog
-          noteToEdit={showNoteDialog.noteToEdit}
-          setNotes={setNotes}
-            close={closeDialog}
-          />
-        )}
+    
         <div className="grid xl:grid-cols-3 md:grid-cols-2 xs:grid-cols-1 gap-4">
           {notes.map((note) => (
             <Note
@@ -49,6 +44,14 @@ function App() {
           ))}
         </div>
       </div>
+      {(showNoteDialog.addDialog||showNoteDialog.noteToEdit) && (
+          <AddEditNoteDialog
+          noteToEdit={showNoteDialog.noteToEdit}
+          setNotes={setNotes}
+            close={closeDialog}
+          />
+        )}
+        {true&&<SignUpModal />}
     </>
   );
 }
